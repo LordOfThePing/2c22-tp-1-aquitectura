@@ -1,6 +1,15 @@
 version: '2'
 
 services:
+
+    bbox:
+        image: arqsoft/bbox:202202.1
+        volumes:
+            - ./bbox-config.properties:/opt/bbox/config.properties:ro
+
+    node:
+        build: ./app
+
     nginx:
         image: nginx:1.23.1
         ports:
