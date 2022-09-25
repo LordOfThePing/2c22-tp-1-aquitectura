@@ -1,4 +1,5 @@
 const express = require("express");
+const { get } = require("request");
 const request = require("request")
 
 const app = express();
@@ -20,6 +21,11 @@ app.get("/async", (_req, _res) => {
         if (err) {return console.log(err);}
         _res.status(200).send(`Async: ${body}`);
     });
+});
+
+app.get('/heavy', (_req,_res) => {
+    for (t = new Date(); new Date() - t < 100; );
+    _res.status(200).send("heavy");
 });
 
 app.listen(PORT, () => {
