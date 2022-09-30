@@ -16,8 +16,11 @@ def p95_response_time(lines):
     # Each measurement is from a 10 second interval
     for i in range(len(p95) + 1):
         time.append(i * 10)
-    
+    p95.insert(0, 0)
+
+
     pyplot.plot(time, p95)
+    pyplot.grid()   
     pyplot.xlabel("Time (s)")
     pyplot.ylabel("Response Time (ms) ")
     pyplot.show()
