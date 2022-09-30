@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import pyplot
 
 def main():
-    with open("endurance.txt", "r") as file:
+    with open("stress.txt", "r") as file:
         lines = file.readlines()
 
     p95_response_time(lines)
@@ -48,4 +48,4 @@ def trunc_longer_arrays(arrays):
         for j in range(min_length, len(arrays[i])):
             arrays[i].pop()
 
-#main()
+main()
