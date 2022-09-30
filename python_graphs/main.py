@@ -36,7 +36,7 @@ def parse_p95_resp_time(lines):
         if "session_length" in line:
             belongs_to_reponse_time = False
         if "p95" in line and belongs_to_reponse_time:
-            number = line.split(" ")[-1].replace("\n", "")
+            number = float(line.split(" ")[-1].replace("\n", ""))
             response_time.append(number)
             belongs_to_reponse_time = False
     return response_time
