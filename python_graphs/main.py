@@ -3,8 +3,8 @@ from urllib import response
 import numpy as np 
 from matplotlib import pyplot
 
-def main():
-    with open("stress.txt", "r") as file:
+def main(filename):
+    with open(filename, "r") as file:
         lines = file.readlines()
 
     p95_response_time(lines)
@@ -14,8 +14,8 @@ def p95_response_time(lines):
     time = []
 
     # Each measurement is from a 10 second interval
-    for i in range(len(p95)):
-        time.append((i+1) * 10)
+    for i in range(len(p95) + 1):
+        time.append(i * 10)
     
     pyplot.plot(time, p95)
     pyplot.xlabel("Time (s)")
