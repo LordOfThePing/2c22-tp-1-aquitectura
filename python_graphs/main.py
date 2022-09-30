@@ -26,6 +26,21 @@ def p95_response_time(lines, params):
     pyplot.title(params[0])
     pyplot.show()
 
+def plot_number_of_requests(lines):
+    reqs = parse_num_of_reqs(lines) 
+    time = []
+    # Each measurement is from a 10 second interval
+    for i in range(len(reqs) + 1):
+        time.append(i * 10)
+    reqs.insert(0, 0)
+
+    pyplot.plot(time, reqs)
+    pyplot.grid()   
+    pyplot.xlabel("Time (s)")
+    pyplot.ylabel("Requests Sent")
+    pyplot.show()
+
+
 def parse_p95_resp_time(lines):
     belongs_to_reponse_time = False
     
@@ -42,6 +57,14 @@ def parse_p95_resp_time(lines):
             belongs_to_reponse_time = False
     return response_time
 
+def parse_num_of_reqs(lines):
+    requests = []
+
+    for line in lines:
+        if "http.requests" in line:
+            number = float(line.split(" ")[-1].replace("\n", ""))
+            requests.append(number)
+    return requests
 #Matches the length of n arrays to the minimum of them by popping
 #elements from longer arrays
 def trunc_longer_arrays(arrays):
