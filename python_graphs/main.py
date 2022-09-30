@@ -3,11 +3,12 @@ from urllib import response
 import numpy as np 
 from matplotlib import pyplot
 
-def main(filename, params):
+def main(filename, params, i):
     with open(filename, "r") as file:
         lines = file.readlines()
 
-    p95_response_time(lines, params)
+    
+    i(lines, params)
 
 def p95_response_time(lines, params):
     p95 = parse_p95_resp_time(lines) 
@@ -26,7 +27,7 @@ def p95_response_time(lines, params):
     pyplot.title(params[0])
     pyplot.show()
 
-def plot_number_of_requests(lines):
+def plot_number_of_requests(lines, params):
     reqs = parse_num_of_reqs(lines) 
     time = []
     # Each measurement is from a 10 second interval
@@ -34,10 +35,12 @@ def plot_number_of_requests(lines):
         time.append(i * 10)
     reqs.insert(0, 0)
 
+
     pyplot.plot(time, reqs)
     pyplot.grid()   
-    pyplot.xlabel("Time (s)")
-    pyplot.ylabel("Requests Sent")
+    pyplot.xlabel(params[2])
+    pyplot.ylabel(params[1])
+    pyplot.title(params[0])
     pyplot.show()
 
 
@@ -55,6 +58,9 @@ def parse_p95_resp_time(lines):
             number = float(line.split(" ")[-1].replace("\n", ""))
             response_time.append(number)
             belongs_to_reponse_time = False
+        if "Summary report" in line:
+            break
+        
     return response_time
 
 def parse_num_of_reqs(lines):
@@ -64,6 +70,8 @@ def parse_num_of_reqs(lines):
         if "http.requests" in line:
             number = float(line.split(" ")[-1].replace("\n", ""))
             requests.append(number)
+        if "Summary report" in line:
+            break
     return requests
 #Matches the length of n arrays to the minimum of them by popping
 #elements from longer arrays
