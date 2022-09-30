@@ -15,9 +15,6 @@ config:
       duration: 250
       arrivalRate: 10
       rampTo: 1000
-    # - name: Plain
-    #   duration: 120
-    #   arrivalRate: 30
     
 
 scenarios:

@@ -3,13 +3,13 @@ from urllib import response
 import numpy as np 
 from matplotlib import pyplot
 
-def main(filename):
+def main(filename, params):
     with open(filename, "r") as file:
         lines = file.readlines()
 
-    p95_response_time(lines)
+    p95_response_time(lines, params)
 
-def p95_response_time(lines):
+def p95_response_time(lines, params):
     p95 = parse_p95_resp_time(lines) 
     time = []
 
@@ -21,8 +21,9 @@ def p95_response_time(lines):
 
     pyplot.plot(time, p95)
     pyplot.grid()   
-    pyplot.xlabel("Time (s)")
-    pyplot.ylabel("Response Time (ms) ")
+    pyplot.xlabel(params[2])
+    pyplot.ylabel(params[1])
+    pyplot.title(params[0])
     pyplot.show()
 
 def parse_p95_resp_time(lines):
@@ -51,4 +52,5 @@ def trunc_longer_arrays(arrays):
         for j in range(min_length, len(arrays[i])):
             arrays[i].pop()
 
-main()
+
+#main("stress.txt", ["Stress Test", "Response Time (ms)", "Time (s)"])
