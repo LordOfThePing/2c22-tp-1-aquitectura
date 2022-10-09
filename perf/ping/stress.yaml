@@ -11,16 +11,18 @@ config:
   pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
-    - name: Ping-Break-Subida 
+    - name: Subida
       duration: 30
-      arrivalRate: 20
+      arrivalRate: 0
       rampTo: 600
-    - name: Ping-Break-Constante
-      duration: 800
+
+    - name: Constante
+      duration: 500
       arrivalRate: 600
+
     
 scenarios:
-  - name: Ping - Stress
+  - name: Ping Stress (/ping)
     flow:
       - get:
           url: '/ping'
