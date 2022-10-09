@@ -4,9 +4,10 @@ const request = require("request")
 
 const app = express();
 const PORT = 3000;
+const HEAVY = 1000;
 
-app.get("/", (_req, _res) => {
-   _res.status(200).send("ping");
+app.get("/ping", (_req, _res) => {
+   _res.status(200).send("pong");
 });
 
 app.get("/sync", (_req, _res) => {
@@ -24,7 +25,7 @@ app.get("/async", (_req, _res) => {
 });
 
 app.get('/heavy', (_req,_res) => {
-    for (t = new Date(); new Date() - t < 100; );
+    for (t = new Date(); new Date() - t < HEAVY; );
     _res.status(200).send("heavy");
 });
 
