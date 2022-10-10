@@ -1,0 +1,8 @@
+
+> perf@1.0.0 scenario
+> ./run-scenario.sh
+
+
+> perf@1.0.0 artillery
+> artillery
+
