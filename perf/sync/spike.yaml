@@ -1,0 +1,39 @@
+config:
+    environments:
+      node:
+        target: 'http://localhost:5555/node'
+        plugins:
+          statsd:
+            host: localhost
+            port: 8125
+            prefix: "artillery-node"
+  
+    pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+  
+    phases:
+      - name: Subida
+        duration: 30
+        arrivalRate: 20
+        rampTo: 200
+
+      - name: Constante
+        duration: 20
+        arrivalRate: 200
+
+      - name: Pico
+        duration: 20
+        arrivalRate: 600
+
+      - name: Constante
+        duration: 20
+        arrivalRate: 200
+
+      - name: Pico
+        duration: 20
+        arrivalRate: 700
+
+scenarios:
+  - name: Sync Spike (/sync)
+    flow:
+      - get:
+          url: '/sync'
