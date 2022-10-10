@@ -1,0 +1,26 @@
+config:
+    environments:
+      node:
+        target: 'http://localhost:5555/node'
+        plugins:
+          statsd:
+            host: localhost
+            port: 8125
+            prefix: "artillery-node"
+  
+    pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+  
+    phases:
+      - name: Subida
+        duration: 30
+        arrivalRate: 20
+        rampTo: 600
+      - name: Constante
+        duration: 900
+        arrivalRate: 600
+
+scenarios:
+  - name: Ping Stress (/ping)
+    flow:
+      - get:
+          url: '/ping'
