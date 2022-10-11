@@ -13,14 +13,14 @@ config:
     phases:
       - name: Subida
         duration: 30
-        arrivalRate: 20
-        rampTo: 600
+        arrivalRate: 1
+        rampTo: 5
       - name: Constante
-        duration: 900
-        arrivalRate: 600
+        duration: 30
+        arrivalRate: 5
 
 scenarios:
-  - name: async Endurace (/async)
+  - name: async Endurance (/async)
     flow:
       - get:
           url: '/async'
