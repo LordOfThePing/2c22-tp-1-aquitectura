@@ -1,0 +1,33 @@
+#por 5 minutos van llegando 4 usuarios por segundo y hacen: login, inscripcion a 3 materias y logout
+
+config:
+  environments:
+    node:
+      target: 'http://localhost:5555/node'
+      http:
+        timeout: 60 #Tiempo en seg que permite esperar para no tirarr ETIMEOUT
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-node"
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    - name: Slow Ramp 
+      duration: 300   # seconds
+      arrivalRate: 4
+
+
+scenarios:
+  - name: "Inscripcion test"
+    flow:
+      - get:
+          url: '/login'
+      - loop:
+        - post:
+            url: '/enroll'
+        count: 3
+      - get:
+          url: '/logout'
