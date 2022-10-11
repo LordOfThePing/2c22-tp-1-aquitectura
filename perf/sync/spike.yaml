@@ -11,26 +11,22 @@ config:
     pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
   
     phases:
-      - name: Subida
-        duration: 30
-        arrivalRate: 20
-        rampTo: 200
+      - name: Constante
+        duration: 20
+        arrivalRate: 5
+
+      - name: Pico
+        duration: 10
+        arrivalRate: 15
 
       - name: Constante
         duration: 20
-        arrivalRate: 200
+        arrivalRate: 5
 
       - name: Pico
-        duration: 20
-        arrivalRate: 600
+        duration: 10
+        arrivalRate: 15
 
-      - name: Constante
-        duration: 20
-        arrivalRate: 200
-
-      - name: Pico
-        duration: 20
-        arrivalRate: 700
 
 scenarios:
   - name: Sync Spike (/sync)

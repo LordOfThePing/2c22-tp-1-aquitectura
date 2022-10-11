@@ -13,16 +13,15 @@ config:
   phases:
     - name: Subida
       duration: 30
-      arrivalRate: 0
-      rampTo: 600
-
+      arrivalRate: 1
+      rampTo: 10
     - name: Constante
-      duration: 500
-      arrivalRate: 600
+      duration: 30
+      arrivalRate: 10
 
     
 scenarios:
-  - name: Ping Stress (/ping)
+  - name: Ping Stress (/sync)
     flow:
       - get:
-          url: '/ping'
+          url: '/sync'
