@@ -13,14 +13,14 @@ config:
     phases:
       - name: Subida
         duration: 30
-        arrivalRate: 20
-        rampTo: 600
+        arrivalRate: 1
+        rampTo: 1
       - name: Constante
-        duration: 900
-        arrivalRate: 600
+        duration: 60
+        arrivalRate: 1
 
 scenarios:
-  - name: Heavy Endurace (/heavy)
+  - name: heavy Short (/heavy)
     flow:
       - get:
           url: '/heavy'
