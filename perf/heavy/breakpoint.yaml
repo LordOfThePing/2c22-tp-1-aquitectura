@@ -26,7 +26,6 @@ config:
     - name: Fase 5
       duration: 20
       arrivalRate: 5
-
     
 scenarios:
   - name: Heavy Breakpoint (/heavy)
