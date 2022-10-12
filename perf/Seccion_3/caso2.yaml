@@ -1,6 +1,3 @@
-#por 5 minutos van llegando 4 usuarios por segundo y hacen: login, ponen su carrera,listan las materia a las que se pueden inscribir, se inscriben a una, 
-#listan las materias en las que se inscribieron, logout
-
 config:
   environments:
     node:
@@ -18,21 +15,61 @@ config:
   phases:
     - name: Slow Ramp 
       duration: 300   # seconds
-      arrivalRate: 4
+      arrivalRate: 10
 
 
 scenarios:
-  - name: "Inscripcion test"
+  - name: "Inscripcion a 3"
     flow:
       - get:
           url: '/login'
-      - post:
+      - get:
           url: '/select_grade'
       - get:
           url: '/list_all'
-      - post:
+      - loop:
+        - get:
+            url: '/enroll'
+        count: 3
+      - get:
+          url: '/list_courses'
+      - get:
+          url: '/logout'
+
+  - name: "Listar inscripciones"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_courses'
+      - get:
+          url: '/logout'
+  - name: "Listar cursos"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_all'
+      - get:
+          url: '/logout'
+  - name: "Inscripcion a 1"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_all'
+      - get:
           url: '/enroll'
       - get:
           url: '/list_courses'
       - get:
           url: '/logout'
+
+
+
