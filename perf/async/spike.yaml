@@ -13,19 +13,19 @@ config:
     phases:
       - name: Constante
         duration: 30
-        arrivalRate: 5
+        arrivalRate: 100
 
       - name: Pico
         duration: 10
-        arrivalRate: 15
+        arrivalRate: 350
 
       - name: Constante
         duration: 30
-        arrivalRate: 5
+        arrivalRate: 100
 
       - name: Pico
         duration: 10
-        arrivalRate: 20
+        arrivalRate: 400
 
       - name: Reset
         arrivalRate: 1
