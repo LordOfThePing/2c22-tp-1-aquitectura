@@ -16,8 +16,11 @@ config:
         arrivalRate: 20
         rampTo: 200
       - name: Constante
-        duration: 60
+        duration: 200
         arrivalRate: 200
+      - name: Reset
+        arrivalRate: 1
+        duration: 20
 
 scenarios:
   - name: Ping Stress (/ping)

@@ -76,10 +76,27 @@ rebuild-multi:
 	docker compose up -d --scale node=3
 	docker compose ps
 
+ping-single:
+	make rebuild-single
+	make ping-stress
+	make rebuild-single
+	make ping-endurance
+	make rebuild-single
+	make ping-spike
+
+ping-multi:
+	make rebuild-multi
+	make ping-multi-stress
+	make rebuild-multi
+	make ping-multi-endurance
+	make rebuild-multi
+	make ping-multi-spike
+
+
 sync-single:
 	make rebuild-single
-	make async-stress
+	make sync-stress
 	make rebuild-single
-	make async-endurance
+	make sync-endurance
 	make rebuild-single
-	make async-spike
+	make sync-spike
