@@ -11,14 +11,14 @@ app.get("/ping", (_req, _res) => {
 });
 
 app.get("/sync", (_req, _res) => {
-    request("http://bbox:9090", {json:true}, (err, response, body) => {
+    request("http://bbox:9091", {json:true}, (err, response, body) => {
         if (err) {return console.log(err);}
         _res.status(200).send(`Sync: ${body}`);
     });
 });
 
 app.get("/async", (_req, _res) => {
-    request("http://bbox:9091", {json:true}, (err, response, body) => {
+    request("http://bbox:9090", {json:true}, (err, response, body) => {
         if (err) {return console.log(err);}
         _res.status(200).send(`Async: ${body}`);
     });

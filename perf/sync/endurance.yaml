@@ -14,13 +14,13 @@ config:
       - name: Subida
         duration: 30
         arrivalRate: 1
-        rampTo: 100
+        rampTo: 5
       - name: Constante
         duration: 30
-        arrivalRate: 100
+        arrivalRate: 5
 
 scenarios:
-  - name: Sync Endurace (/sync)
+  - name: async Endurance (/async)
     flow:
       - get:
-          url: '/sync'
+          url: '/async'
