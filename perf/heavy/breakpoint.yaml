@@ -11,14 +11,25 @@ config:
   pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
-    - name: Subida
-      duration: 60
+    - name: Inicio
+      duration: 20
       arrivalRate: 1
-      rampTo: 1000
+    - name: Fase 2
+      duration: 20
+      arrivalRate: 2
+    - name: Fase 3
+      duration: 20
+      arrivalRate: 3
+    - name: Fase 4
+      duration: 20
+      arrivalRate: 4
+    - name: Fase 5
+      duration: 20
+      arrivalRate: 5
 
     
 scenarios:
-  - name: Async Breakpoint (/heavy)
+  - name: Heavy Breakpoint (/heavy)
     flow:
       - get:
           url: '/heavy'
