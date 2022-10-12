@@ -14,10 +14,10 @@ config:
     - name: Subida
       duration: 30
       arrivalRate: 1
-      rampTo: 75
+      rampTo: 15
     - name: Constante
       duration: 170
-      arrivalRate: 75
+      arrivalRate: 15
     - name: Reset
       arrivalRate: 1
       duration: 20
