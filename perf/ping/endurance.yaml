@@ -14,10 +14,10 @@ config:
       - name: Subida
         duration: 30
         arrivalRate: 20
-        rampTo: 600
+        rampTo: 200
       - name: Constante
-        duration: 900
-        arrivalRate: 600
+        duration: 60
+        arrivalRate: 200
 
 scenarios:
   - name: Ping Stress (/ping)
