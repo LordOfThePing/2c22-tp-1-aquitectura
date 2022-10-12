@@ -13,11 +13,14 @@ config:
     phases:
       - name: Subida
         duration: 30
-        arrivalRate: 1
+        arrivalRate: 20
         rampTo: 1
       - name: Constante
-        duration: 60
+        duration: 200
         arrivalRate: 1
+      - name: Reset
+        arrivalRate: 1
+        duration: 20
 
 scenarios:
   - name: heavy Short (/heavy)
