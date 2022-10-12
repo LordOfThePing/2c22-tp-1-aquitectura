@@ -59,7 +59,7 @@ heavy-multi-endurance:
 	npm run scenario heavy/endurance node >heavy/multi-endurance.txt
 heavy-spike:
 	npm run scenario heavy/spike node >heavy/spike.txt
-heavy-multi-spike: .
+heavy-multi-spike:
 	npm run scenario heavy/spike node >heavy/multi-spike.txt
 heavy-breakpoint: 
 	npm run scenario heavy/breakpoint node >heavy/breakpoint.txt
@@ -75,3 +75,11 @@ rebuild-multi:
 	docker compose stop -t0
 	docker compose up -d --scale node=3
 	docker compose ps
+
+sync-single:
+	make rebuild-single
+	make async-stress
+	make rebuild-single
+	make async-endurance
+	make rebuild-single
+	make async-spike
