@@ -33,42 +33,42 @@ app.get('/heavy', (_req,_res) => {
 app.get('/login', (_req,_res) => {
     setTimeout(function() {
         _res.status(200).send("Login");;
-    }, 500);
+    }, 100);
 });
 
 
 app.get('/select_grade', (_req,_res) => {
     setTimeout(function() {
         _res.status(200).send("select_grade");;
-    }, 100);
+    }, 50);
 });
 
 
 app.get('/list_all', (_req,_res) => {
     setTimeout(function() {
         _res.status(200).send("List All");;
-    }, 1500);
+    }, 500);
 });
 
 
 app.get('/list_courses', (_req,_res) => {
     setTimeout(function() {
         _res.status(200).send("List Courses");;
-    }, 1000);
+    }, 300);
 });
 
 
 app.get('/enroll', (_req,_res) => {
     setTimeout(function() {
         _res.status(200).send("Enroll");;
-    }, 200);
+    }, 100);
 });
 
 
 app.get('/logout', (_req,_res) => {
     setTimeout(function() {
         _res.status(200).send("logout");;
-    }, 200);
+    }, 50);
 });
 
 app.listen(PORT, () => {
