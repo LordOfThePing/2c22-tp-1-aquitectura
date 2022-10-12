@@ -24,7 +24,7 @@ config:
 
     
 scenarios:
-  - name: Ping Stress (/sync)
+  - name: Async Stress (/async)
     flow:
       - get:
-          url: '/sync'
+          url: '/async'

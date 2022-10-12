@@ -33,7 +33,7 @@ config:
 
 
 scenarios:
-  - name: Sync Spike (/sync)
+  - name: Async Spike (/async)
     flow:
       - get:
-          url: '/sync'
+          url: '/async'
