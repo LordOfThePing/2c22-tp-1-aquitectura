@@ -14,11 +14,11 @@ config:
     - name: Subida
       duration: 60
       arrivalRate: 1
-      rampTo: 20
+      rampTo: 600
 
     
 scenarios:
-  - name: Async Breakpoint (/async)
+  - name: Sync Breakpoint (/sync)
     flow:
       - get:
-          url: '/async'
+          url: '/sync'

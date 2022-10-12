@@ -14,14 +14,14 @@ config:
     - name: Subida
       duration: 30
       arrivalRate: 1
-      rampTo: 150
+      rampTo: 10
     - name: Constante
       duration: 30
-      arrivalRate: 150
+      arrivalRate: 10
 
     
 scenarios:
-  - name: Ping Stress (/sync)
+  - name: Async Stress (/async)
     flow:
       - get:
-          url: '/sync'
+          url: '/async'
