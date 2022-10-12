@@ -14,7 +14,7 @@ config:
     - name: Subida
       duration: 60
       arrivalRate: 1
-      rampTo: 1000
+      rampTo: 20
 
     
 scenarios:
