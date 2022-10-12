@@ -103,11 +103,11 @@ sync-single:
 
 sync-multi:
 	make rebuild-multi
-	make sync-stress
+	make sync-multi-stress
 	make rebuild-multi
-	make sync-endurance
+	make sync-multi-endurance
 	make rebuild-multi
-	make sync-spike
+	make sync-multi-spike
 
 async-single:
 	make rebuild-single
