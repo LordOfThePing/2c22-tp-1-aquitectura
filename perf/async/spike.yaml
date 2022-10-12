@@ -12,20 +12,24 @@ config:
   
     phases:
       - name: Constante
-        duration: 20
-        arrivalRate: 80
+        duration: 30
+        arrivalRate: 5
 
       - name: Pico
         duration: 10
-        arrivalRate: 200
+        arrivalRate: 15
 
       - name: Constante
-        duration: 20
-        arrivalRate: 80
+        duration: 30
+        arrivalRate: 5
 
       - name: Pico
         duration: 10
-        arrivalRate: 200
+        arrivalRate: 20
+
+      - name: Reset
+        arrivalRate: 1
+        duration: 20
 
 
 scenarios:

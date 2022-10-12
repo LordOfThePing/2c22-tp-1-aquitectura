@@ -100,3 +100,19 @@ sync-single:
 	make sync-endurance
 	make rebuild-single
 	make sync-spike
+
+async-single:
+	make rebuild-single
+	make async-stress
+	make rebuild-single
+	make async-endurance
+	make rebuild-single
+	make async-spike
+
+async-multi:
+	make rebuild-multi
+	make async-multi-stress
+	make rebuild-multi
+	make async-multi-endurance
+	make rebuild-multi
+	make async-multi-spike
