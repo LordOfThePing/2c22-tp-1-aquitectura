@@ -16,7 +16,7 @@ config:
         arrivalRate: 1
         rampTo: 10
       - name: Constante
-        duration: 30
+        duration: 200
         arrivalRate: 10
       - name: Reset
         arrivalRate: 1
