@@ -12,13 +12,17 @@ config:
 
   phases:
     - name: Subida
-      duration: 60
+      duration: 80
       arrivalRate: 1
-      rampTo: 600
+      rampTo: 50
+  
+    - name: Reset
+      duration: 20
+      arrivalRate: 1
 
     
 scenarios:
-  - name: Sync Breakpoint (/sync)
+  - name: Async Breakpoint (/async)
     flow:
       - get:
-          url: '/sync'
+          url: '/async'
