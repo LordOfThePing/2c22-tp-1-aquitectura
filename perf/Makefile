@@ -142,3 +142,9 @@ heavy-multi:
 	make heavy-multi-endurance
 	make rebuild-multi
 	make heavy-multi-spike
+
+
+sync-worker-test: 
+	npm run scenario sync/worker-test node >sync/worker-test.txt
+sync-multi-worker-test: 
+	npm run scenario sync/worker-test node >sync/multi-worker-test.txt

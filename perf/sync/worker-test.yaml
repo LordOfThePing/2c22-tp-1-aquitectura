@@ -1,0 +1,61 @@
+config:
+    environments:
+      node:
+        target: 'http://localhost:5555/node'
+        #http: 
+          #timeout: 1  # segundos
+        plugins:
+          statsd:
+            host: localhost
+            port: 8125
+            prefix: "artillery-node"
+  
+    pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+  
+    
+    # phases:
+    #   - name: Phase 1
+    #     duration: 1
+    #     arrivalRate: 1
+    #   - name: Wait
+    #     pause: 10
+    #   - name: Phase 2
+    #     duration: 1
+    #     arrivalRate: 2
+    #   - pause: 10
+    #     name: Wait
+    #   - name: Phase 3
+    #     duration: 1
+    #     arrivalRate: 3
+    #   - pause: 10
+    #     name: Wait
+    #   - name: Phase 4
+    #     duration: 1
+    #     arrivalRate: 4
+    #   - pause: 10
+    #     name: Wait
+    #   - name: Phase 5
+    #     duration: 1
+    #     arrivalRate: 5
+
+    phases: 
+      - name: Phase 1
+        duration: 30
+        arrivalRate: 0
+        rampTo: 15
+
+    # phases:
+    #   - name: Phase 1
+    #     duration: 10
+    #     arrivalRate: 20
+    #   - name: Stop
+    #     duration: 30
+    #     arrivalRate: 0
+        
+      
+
+scenarios:
+  - name: Sync Worker-test (/sync)
+    flow:
+      - get:
+          url: '/sync'
