@@ -17,7 +17,7 @@ config:
 
       - name: Pico
         duration: 10
-        arrivalRate: 40
+        arrivalRate: 80
 
       - name: Constante
         duration: 30
@@ -25,7 +25,7 @@ config:
 
       - name: Pico
         duration: 10
-        arrivalRate: 50
+        arrivalRate: 80
 
       - name: Reset
         arrivalRate: 1
