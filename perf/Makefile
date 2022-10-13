@@ -68,11 +68,13 @@ heavy-multi-breakpoint:
 
 rebuild-single: 
 	docker compose stop -t0
+	docker compose build
 	docker compose up -d 
 	docker compose ps
 
 rebuild-multi: 
 	docker compose stop -t0
+	docker compose build
 	docker compose up -d --scale node=3
 	docker compose ps
 

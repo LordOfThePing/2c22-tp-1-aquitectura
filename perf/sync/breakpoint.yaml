@@ -14,7 +14,7 @@ config:
     - name: Subida
       duration: 80
       arrivalRate: 1
-      rampTo: 30
+      rampTo: 150
   
     - name: Reset
       duration: 20
