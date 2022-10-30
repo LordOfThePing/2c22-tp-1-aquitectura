@@ -1,10 +1,19 @@
 const express = require("express");
 const { get } = require("request");
-const request = require("request")
+const request = require("request");
 
 const app = express();
 const PORT = 3000;
 const HEAVY = 1000;
+
+var lynx = require('lynx');
+var expressLynx = require('express-lynx');
+
+var metrics = new lynx('localhost', 8125);
+
+var statsdMiddleware = expressLynx(metrics);
+
+app.use(statsdMiddleware());
 
 app.get("/ping", (_req, _res) => {
    _res.status(200).send("pong");
