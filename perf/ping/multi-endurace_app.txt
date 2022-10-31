@@ -1,0 +1,11 @@
+
+> perf@1.0.0 scenario
+> ./run-scenario.sh
+
+
+> perf@1.0.0 artillery
+> artillery
+
+Error: ENOENT: no such file or directory, open 'ping/endurace.yaml'
+ENOENT
+ENOENT: no such file or directory, open 'ping/endurace.yaml'
