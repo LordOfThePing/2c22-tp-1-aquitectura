@@ -148,3 +148,11 @@ sync-worker-test:
 	npm run scenario sync/worker-test node >sync/worker-test.txt
 sync-multi-worker-test: 
 	npm run scenario sync/worker-test node >sync/multi-worker-test.txt
+
+heavy-single-app:
+	npm run scenario heavy/stress node >heavy/stress_app.txt
+	make rebuild-single
+	npm run scenario heavy/spike node >heavy/spike_app.txt
+	make rebuild-single
+	npm run scenario heavy/endurance node >heavy/endurance_app.txt
+	make rebuild-single
