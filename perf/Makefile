@@ -67,16 +67,16 @@ heavy-multi-breakpoint:
 	npm run scenario heavy/breakpoint node >heavy/multi-breakpoint.txt
 
 rebuild-single: 
-	docker compose stop -t0
-	docker compose build
-	docker compose up -d 
-	docker compose ps
+	sudo docker compose stop -t0
+	sudo docker compose build
+	sudo docker compose up -d 
+	sudo docker compose ps
 
 rebuild-multi: 
-	docker compose stop -t0
-	docker compose build
-	docker compose up -d --scale node=3
-	docker compose ps
+	sudo docker compose stop -t0
+	sudo docker compose build
+	sudo docker compose up -d --scale node=3
+	sudo docker compose ps
 
 ping-single:
 	make rebuild-single
