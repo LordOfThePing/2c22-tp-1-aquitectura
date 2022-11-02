@@ -156,3 +156,11 @@ heavy-single-app:
 	make rebuild-single
 	npm run scenario heavy/endurance node >heavy/endurance_app.txt
 	make rebuild-single
+
+sync-single-app:
+	npm run scenario sync/stress node >sync/stress_app.txt
+	make rebuild-single
+	npm run scenario sync/spike node >sync/spike_app.txt
+	make rebuild-single
+	npm run scenario sync/endurance node >sync/endurance_app.txt
+	make rebuild-single
