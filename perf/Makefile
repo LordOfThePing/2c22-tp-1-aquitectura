@@ -172,3 +172,11 @@ sync-multi-app:
 	make rebuild-multi
 	npm run scenario sync/endurance node >sync/endurance_app.txt
 	make rebuild-multi
+	
+async-multi-app:
+	npm run scenario async/stress node >async/multi_stress_app.txt
+	make rebuild-multi
+	npm run scenario async/spike node >async/multi_spike_app.txt
+	make rebuild-multi
+	npm run scenario async/endurance node >async/multi_endurance_app.txt
+	make rebuild-multi
