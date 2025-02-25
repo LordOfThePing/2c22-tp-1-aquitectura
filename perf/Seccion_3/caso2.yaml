@@ -1,0 +1,75 @@
+config:
+  environments:
+    node:
+      target: 'http://localhost:5555/node'
+      http:
+        timeout: 60 #Tiempo en seg que permite esperar para no tirarr ETIMEOUT
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-node"
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    - name: Slow Ramp 
+      duration: 300   # seconds
+      arrivalRate: 10
+
+
+scenarios:
+  - name: "Inscripcion a 3"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_all'
+      - loop:
+        - get:
+            url: '/enroll'
+        count: 3
+      - get:
+          url: '/list_courses'
+      - get:
+          url: '/logout'
+
+  - name: "Listar inscripciones"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_courses'
+      - get:
+          url: '/logout'
+  - name: "Listar cursos"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_all'
+      - get:
+          url: '/logout'
+  - name: "Inscripcion a 1"
+    flow:
+      - get:
+          url: '/login'
+      - get:
+          url: '/select_grade'
+      - get:
+          url: '/list_all'
+      - get:
+          url: '/enroll'
+      - get:
+          url: '/list_courses'
+      - get:
+          url: '/logout'
+
+
+

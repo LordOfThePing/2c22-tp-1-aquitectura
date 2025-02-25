@@ -1,0 +1,28 @@
+config:
+  environments:
+    node:
+      target: 'http://localhost:5555/node'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-node"
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    - name: Subida
+      duration: 80
+      arrivalRate: 1
+      rampTo: 150
+  
+    - name: Reset
+      duration: 20
+      arrivalRate: 1
+
+    
+scenarios:
+  - name: Async Breakpoint (/async)
+    flow:
+      - get:
+          url: '/async'

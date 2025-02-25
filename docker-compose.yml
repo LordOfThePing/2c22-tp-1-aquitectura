@@ -1,6 +1,15 @@
 version: '2'
 
 services:
+
+    bbox:
+        image: arqsoft/bbox:202202.1
+        volumes:
+            - ./bbox-config.properties:/opt/bbox/config.properties:ro
+
+    node:
+        build: ./app
+
     nginx:
         image: nginx:1.23.1
         ports:
@@ -23,10 +32,10 @@ services:
 
     grafana:
         image: grafana/grafana:9.1.2
-        ports:
-            - "80:3000"
         volumes:
             - "grafana_config:/var/lib/grafana"
+        ports:
+            - "1501:3000"
 
     cadvisor:
         image: gcr.io/cadvisor/cadvisor:v0.45.0

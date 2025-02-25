@@ -11,17 +11,31 @@ config:
   pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
 
   phases:
-    - name: Ramp
-      duration: 30
-      arrivalRate: 5
-      rampTo: 30
-    - name: Plain
-      duration: 120
-      arrivalRate: 30
-    
+    - name: Slow Ramp # used by slow endpoints
+      duration: 45   # seconds
+      arrivalRate: 10
+      rampTo: 450
+    - name: Plain Line
+      duration: 600
+      arrivalRate: 450
+    - name: Reduce Line 1
+      duration: 10
+      arrivalRate: 300
+    - name: Reduce Line 2
+      duration: 10
+      arrivalRate: 200
+    - name: Reduce Line 3
+      duration: 10
+      arrivalRate: 100 
+    - name: Reduce Line 4
+      duration: 10
+      arrivalRate: 50
+    - name: Reset Line  # useful for resetting Grafana stats
+      duration: 60
+      arrivalRate: 1
 
 scenarios:
-  - name: Root (/)
+  - name: Ping - Stress
     flow:
       - get:
-          url: '/'
+          url: '/ping'

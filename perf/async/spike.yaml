@@ -1,0 +1,39 @@
+config:
+    environments:
+      node:
+        target: 'http://localhost:5555/node'
+        plugins:
+          statsd:
+            host: localhost
+            port: 8125
+            prefix: "artillery-node"
+  
+    pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+  
+    phases:
+      - name: Constante
+        duration: 30
+        arrivalRate: 4
+
+      - name: Pico
+        duration: 10
+        arrivalRate: 80
+
+      - name: Constante
+        duration: 30
+        arrivalRate: 4
+
+      - name: Pico
+        duration: 10
+        arrivalRate: 80
+
+      - name: Reset
+        arrivalRate: 1
+        duration: 20
+
+
+scenarios:
+  - name: Async Spike (/async)
+    flow:
+      - get:
+          url: '/async'
