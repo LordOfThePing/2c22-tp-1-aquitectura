@@ -1,3 +1,7 @@
+<details>
+   <summary>Enunciado</summary>
+   <br>
+
 # Punto de partida para el TP 1 de Arquitectura del Software (75.73) del 2do cuatrimestre de 2022
 
 > **La fecha de entrega para el informe y el código es el jueves 13/10** :bangbang:
@@ -273,3 +277,248 @@ docc exec SERVICE COMMAND
 # Versión instalada
 docc version
 ```
+</details>
+# TRABAJO PRÁCTICO N°1
+## Arquitectura del Software
+
+**2C2022**
+
+### Integrantes:
+| Nombre               | Padrón  | Email                 |
+|----------------------|--------|-----------------------|
+| Pedro Andrés Flynn  | 105742 | pflynn@fi.uba.ar     |
+| Juan Cruz Caserío   | 104927 | jcaserio@fi.uba.ar   |
+| Franco Papa         | 106249 | fpapa@fi.uba.ar      |
+| Luciano Jadur       | 101284 | ljadur@fi.uba.ar     |
+
+---
+
+## Índice
+1. [Introducción](#introducción)
+2. [PING](#ping)
+   - Stress
+   - Spike
+   - Endurance
+3. [SYNC](#sync)
+   - Stress
+   - Spike
+   - Endurance
+4. [ASYNC](#async)
+   - Stress
+   - Spike
+   - Endurance
+5. [HEAVY](#heavy)
+   - Stress
+   - Spike
+   - Endurance
+6. [Métricas desde la App](#métricas-desde-la-app)
+7. [Análisis y Caracterización](#análisis-y-caracterización)
+8. [Sistema de Inscripción](#sistema-de-inscripción)
+
+---
+
+## Introducción
+El presente informe detalla los resultados obtenidos en distintas pruebas realizadas sobre los endpoints de un sistema.
+
+### Components & Connectors
+#### Single Node vs Multi Node
+Se llevaron a cabo pruebas en ambas configuraciones para evaluar el rendimiento del sistema bajo distintas cargas.
+
+---
+
+## PING
+Este endpoint devuelve la cadena `Pong` ante cada request recibido, sin requerir comunicación con servicios externos.
+
+### PING - Stress
+#### Fases:
+```yaml
+  - name: Subida
+    duration: 30
+    arrivalRate: 1
+    rampTo: 275
+  - name: Constante
+    duration: 170
+    arrivalRate: 275
+  - name: Reset
+    arrivalRate: 1
+    duration: 20
+```
+
+#### Stress - Un Nodo
+El sistema responde correctamente hasta 250 RPS. Al superarlo, comienzan errores de TIMEOUT y CONNRESET.
+
+#### Stress - Multi Nodo
+La configuración de múltiples nodos presenta una tasa de errores mayor durante la fase constante.
+
+---
+
+### PING - Spike
+#### Fases:
+```yaml
+  - name: Constante
+    duration: 30
+    arrivalRate: 100
+  - name: Pico
+    duration: 10
+    arrivalRate: 350
+  - name: Constante
+    duration: 30
+    arrivalRate: 100
+  - name: Pico
+    duration: 10
+    arrivalRate: 400
+  - name: Reset
+    arrivalRate: 1
+    duration: 20
+```
+
+#### Spike - Un Nodo / Multi Nodo
+- El sistema responde bien hasta 100 RPS.
+- La latencia aumenta con los picos de carga.
+- Multi Nodo logra reducir algunos errores.
+
+---
+
+### PING - Endurance
+#### Fases:
+```yaml
+  - name: Subida
+    duration: 30
+    arrivalRate: 20
+    rampTo: 200
+  - name: Constante
+    duration: 200
+    arrivalRate: 200
+  - name: Reset
+    arrivalRate: 1
+    duration: 20
+```
+
+#### Endurance - Un Nodo
+Respuesta aceptable, con latencias máximas de 6000 ms.
+
+#### Endurance - Multi Nodo
+La latencia fluctúa entre 10000 y 6000 ms durante la fase constante.
+
+---
+
+## SYNC
+Este endpoint devuelve la cadena `Sync: Hello world` tras realizar una petición a `https://bbox:9091`.
+
+### SYNC - Stress
+#### Fases:
+```yaml
+  - name: Subida
+    duration: 30
+    arrivalRate: 1
+    rampTo: 12
+  - name: Constante
+    duration: 170
+    arrivalRate: 12
+  - name: Reset
+    arrivalRate: 1
+    duration: 20
+```
+
+#### Stress - Un Nodo / Multi Nodo
+- El sistema colapsa al alcanzar los 12 RPS.
+- La latencia crece hasta el punto de quiebre.
+
+---
+
+## ASYNC
+Este endpoint devuelve la cadena `Async: Hello world` tras una petición a `https://bbox:9090`.
+
+### ASYNC - Stress
+#### Fases:
+```yaml
+  - name: Subida
+    duration: 30
+    arrivalRate: 1
+    rampTo: 65
+  - name: Constante
+    duration: 170
+    arrivalRate: 65
+  - name: Reset
+    arrivalRate: 1
+    duration: 20
+```
+
+#### Resultados
+- Latencia fluctuante, pero sin errores en ambos escenarios.
+- Multi Nodo mantiene estabilidad en latencia y errores.
+
+---
+
+## HEAVY
+Este endpoint realiza cálculos intensivos, aumentando la latencia.
+
+### HEAVY - Stress
+#### Fases:
+```yaml
+  - name: Subida
+    duration: 30
+    arrivalRate: 1
+    rampTo: 2
+  - name: Constante
+    duration: 170
+    arrivalRate: 2
+  - name: Reset
+    arrivalRate: 1
+    duration: 20
+```
+
+#### Resultados
+- Resistencia baja en ambas configuraciones.
+- Fallos predominantes tras menos de un minuto de carga.
+
+---
+
+## Métricas desde la App
+Se midieron métricas usando `lynx` y `statsd`.
+
+- **PING:** Multi Nodo llega a 500 RPS con `2000ms` response time.
+- **ASYNC:** Multi Nodo tiene una performance similar a Single Node.
+- **SYNC:** La diferencia entre ambos escenarios es mínima.
+- **HEAVY:** Multi Nodo mejora en endurance pero sigue presentando fallos.
+
+---
+
+## Análisis y Caracterización
+
+### Sincrónico vs Asincrónico
+- `/async` (puerto 9090) tiene mejor response time y maneja mayor carga.
+- `/sync` (puerto 9091) se bloquea y presenta mayor latencia.
+
+### Workers en `sync`
+El sistema empieza a fallar alrededor de 10-15 RPS, lo que sugiere esa cantidad de workers.
+
+### Tiempos de Respuesta
+- `/async`: 1500 ms.
+- `/sync`: 1800-2000 ms.
+
+---
+
+## Sistema de Inscripción
+
+Se simula un sistema de inscripción con los siguientes endpoints:
+
+- `/login` (100ms)
+- `/select_grade` (50ms)
+- `/list_all` (500ms)
+- `/list_courses` (300ms)
+- `/enroll` (100ms)
+- `/logout` (50ms)
+
+### Caso 1
+- 4 usuarios/seg durante 5 minutos.
+- Picos de carga afectan el response time.
+
+### Caso 2
+- 10 usuarios/seg.
+- Se simulan distintos escenarios.
+- **Resultados:** Mejor distribución de carga y menor tiempo de respuesta.
+
+---
+
+Fin del Informe.
